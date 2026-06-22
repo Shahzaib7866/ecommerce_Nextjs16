@@ -1,0 +1,310 @@
+.shop-category {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Banner */
+.shopcategory-banner {
+    display: block;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 15px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Sort Bar */
+.shopcategory-indexSort {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(14px, 1.8vw, 16px);
+    color: #555;
+    box-sizing: border-box;
+}
+
+.shopcategory-indexSort p span {
+    font-weight: 600;
+    color: #171717;
+}
+
+.shopcategory-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;  /* needed for the pseudo-element */
+}
+
+/* Sort Bar */
+.shopcategory-indexSort {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(14px, 1.8vw, 16px);
+    color: #555;
+    box-sizing: border-box;
+}
+
+.shopcategory-indexSort p span {
+    font-weight: 600;
+    color: #171717;
+}
+
+/* Sort wrapper — needs position:relative to anchor the dropdown */
+.shopcategory-sort-wrapper {
+    position: relative;
+}
+
+.shopcategory-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+    user-select: none;
+}
+
+/* Left-to-right underline */
+.shopcategory-sort::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.35s ease;
+}
+
+.shopcategory-sort-wrapper:hover .shopcategory-sort::after,
+.shopcategory-sort:hover::after {
+    width: 100%;
+}
+
+/* Invisible bridge that fills the gap between trigger and dropdown */
+.shopcategory-sort-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 14px;   /* must match or exceed the gap (top: calc(100% + 12px)) */
+}
+
+/* Dropdown panel */
+.shopcategory-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;               /* anchored to right so it never overflows right edge */
+    min-width: 180px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    z-index: 999;
+
+    /* Hidden state */
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    /* delay the HIDE transition so gap crossing doesn't close it instantly */
+    transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+}
+
+/* Show on hover of the whole wrapper */
+.shopcategory-sort-wrapper:hover .shopcategory-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Section label inside dropdown */
+.shopcategory-dropdown-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaa;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 6px 16px 4px;
+}
+
+/* Each dropdown item */
+.shopcategory-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+}
+
+.shopcategory-dropdown-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 3px;
+    height: 60%;
+    background: #111;
+    border-radius: 0 3px 3px 0;
+    transition: transform 0.2s ease;
+}
+
+.shopcategory-dropdown-item:hover {
+    background: #f5f5f5;
+    color: #111;
+}
+
+.shopcategory-dropdown-item:hover::before {
+    transform: translateY(-50%) scaleY(1);
+}
+
+/* Divider between label groups */
+.shopcategory-dropdown-divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 6px 0;
+}
+
+/* Rotate dropdown arrow icon on hover */
+.shopcategory-sort img {
+    transition: transform 0.3s ease;
+    width: 14px;
+}
+
+.shopcategory-sort-wrapper:hover .shopcategory-sort img {
+    transform: rotate(180deg);
+}
+
+/* Product Grid */
+.shopcategory-products {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-items: center;
+    box-sizing: border-box;
+}
+
+/* New items animate in */
+.shopcategory-products > * {
+    animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Load More wrapper */
+.shopcategory-loadmore-wrapper {
+    margin: 50px auto 80px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Explore More button */
+.shopcategory-loadmore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 56px;
+    border-radius: 75px;
+    background: #ededed;
+    color: #555;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+}
+
+.shopcategory-loadmore:hover {
+    background: #111;
+    color: #fff;
+    transform: scale(1.03);
+}
+
+.shopcategory-loadmore.loading {
+    cursor: default;
+    background: #e5e5e5;
+    pointer-events: none;
+}
+
+/* Spinner inside button */
+.loadmore-spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #ccc;
+    border-top-color: #555;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* All loaded message */
+.shopcategory-all-loaded {
+    font-size: 14px;
+    color: #aaa;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 1024px) {
+    .shopcategory-products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shopcategory-indexSort {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .shopcategory-banner {
+        width: 95%;
+        margin: 15px auto;
+    }
+}
+
+@media (max-width: 550px) {
+    .shopcategory-products {
+        grid-template-columns: 1fr;
+        width: 100%;
+        padding: 0 20px;
+    }
+}

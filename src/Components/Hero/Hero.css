@@ -1,0 +1,392 @@
+/* .hero {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+    display: flex;
+    padding: 0 5%;
+    box-sizing: border-box;
+}
+
+.hero-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    line-height: 1.1;
+}
+
+.hero-left h2 {
+    color: #090909;
+    font-size: clamp(16px, 2vw, 24px);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.hero-left p {
+    color: #171717;
+    font-size: clamp(35px, 7vw, 80px); /* Text size viewport ke hisab se scaling karega */
+    /* font-weight: 700;
+    margin: 0;
+}
+
+.hero-hand-icon {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hero-hand-icon img {
+    width: clamp(40px, 6vw, 80px);
+}
+
+.hero-latest-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 260px;
+    height: 60px;
+    border-radius: 75px;
+    margin-top: 20px;
+    background: #ff4141;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hero-latest-btn:hover {
+    background: #e63939;
+    transform: scale(1.03);
+}
+
+.hero-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-right img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding: 120px 20px 60px;
+    }
+    .hero-left {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .hero-hand-icon { justify-content: center; }
+    .hero-right img { max-width: 280px; }
+}  */
+
+
+/* ── Carousel Shell ─────────────────────────────────── */
+.hero-carousel {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  transition: background 0.6s ease;
+}
+
+/* ── Slide ──────────────────────────────────────────── */
+.hero-slide {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 6%;
+  box-sizing: border-box;
+}
+
+/* Entry (resting) state */
+.hero-slide.enter {
+  animation: slideEnter 0.42s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+/* Exit states */
+.hero-slide.exit-next {
+  animation: slideExitLeft 0.42s cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+.hero-slide.exit-prev {
+  animation: slideExitRight 0.42s cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+@keyframes slideEnter {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideExitLeft {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-40px); }
+}
+@keyframes slideExitRight {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(40px); }
+}
+
+/* ── Left Content ───────────────────────────────────── */
+.hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  line-height: 1.05;
+}
+
+.hero-badge {
+  font-size: clamp(12px, 1.4vw, 16px);
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.hero-heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hero-heading-group p,
+.hero-left p {
+  color: #111;
+  font-size: clamp(38px, 7vw, 88px);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.05;
+  text-transform: lowercase;
+}
+
+.hero-hand-icon {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-hand-icon img {
+  width: clamp(36px, 5.5vw, 72px);
+  margin-top: 4px;
+}
+
+.hero-latest-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 28px;
+  height: 58px;
+  border-radius: 999px;
+  margin-top: 28px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  width: fit-content;
+}
+
+.hero-latest-btn:hover {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+.hero-latest-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(10);
+}
+
+/* ── Right Image ────────────────────────────────────── */
+.hero-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-right img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+
+  /* ── Smooth out image edges with a radial mask ── */
+  mask-image: radial-gradient(circle at center, black 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 70%, transparent 100%);
+  
+  /* Optional: adds a natural depth and hides any residual fringing */
+  filter: drop-shadow(0 20px 25px -12px rgba(0, 0, 0, 0.25));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+/* Adjust the mask radius for different screen sizes */
+@media (max-width: 768px) {
+  .hero-right img {
+    mask-image: radial-gradient(circle at center, black 80%, transparent 98%);
+    -webkit-mask-image: radial-gradient(circle at center, black 80%, transparent 98%);
+  }
+}
+
+/* ── Arrow Buttons ──────────────────────────────────── */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #222;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(0,0,0,0.25);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow-left  { left: 24px; }
+.carousel-arrow-right { right: 24px; }
+
+/* ── Dots ───────────────────────────────────────────── */
+.carousel-dots {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.carousel-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.carousel-dot.active {
+  /* width & background set inline via style prop */
+}
+
+/* ── Progress Bar ───────────────────────────────────── */
+.carousel-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.carousel-progress-bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  animation: progressFill 4.5s linear forwards;
+  border-radius: 0 2px 2px 0;
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── Slide Counter ──────────────────────────────────── */
+.carousel-counter {
+  position: absolute;
+  bottom: 44px;
+  right: 6%;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.4);
+  z-index: 10;
+  letter-spacing: 0.5px;
+}
+
+.counter-current {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-slide {
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 24px 100px;
+    gap: 32px;
+    min-height: 100vh;
+  }
+
+  .hero-left {
+    align-items: center;
+    text-align: center;
+    order: 2;
+  }
+
+  .hero-hand-icon {
+    justify-content: center;
+  }
+
+  .hero-latest-btn {
+    margin-top: 16px;
+  }
+
+  .hero-right {
+    order: 1;
+    flex: none;
+  }
+
+  .hero-right img {
+    max-width: 260px;
+    max-height: 40vh;
+  }
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-arrow-left  { left: 12px; }
+  .carousel-arrow-right { right: 12px; }
+
+  .carousel-counter {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 52px;
+  }
+}
+
+
+
+
+

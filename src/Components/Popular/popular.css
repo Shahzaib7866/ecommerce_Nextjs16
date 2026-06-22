@@ -1,0 +1,56 @@
+.popular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 60px 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.popular h1 {
+    color: #171717;
+    font-size: clamp(24px, 4vw, 45px); /* Responsive font screen ke mutabik */
+    font-weight: 600;
+    text-align: center;
+}
+
+.popular hr {
+    width: 120px;
+    height: 5px;
+    border: none;
+    border-radius: 10px;
+    background: #252525;
+    margin-bottom: 40px;
+}
+
+.popular-item {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px; /* Container boundary */
+    margin: 0 auto;
+}
+
+/* Har item ki width configuration taake max 3 items fit hon (Gap: 30px ke sath) */
+.popular-item > * {
+    flex: 1 1 calc(33.333% - 20px); 
+    max-width: 350px; /* Ek card isse bada nahi hoga */
+    min-width: 280px; /* Mobile par automatic wrap trigger karne ke liye */
+}
+
+@media (max-width: 900px) {
+    /* Tablet par auto 2 items per row ho jayenge */
+    .popular-item > * {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    /* Mobile par 1 item per row */
+    .popular-item > * {
+        flex: 1 1 100%;
+    }
+}

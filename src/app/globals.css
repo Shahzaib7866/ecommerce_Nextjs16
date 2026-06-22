@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Yeh properties ko elements ke andar hi rakhta hai, bahar nikalne nahi deta */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif;
+    
+    /* Puri website par horizontal scrollbar ko block karne ke liye */
+    overflow-x: hidden; 
+    width: 100vw;
+}
+
+code {
+     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}

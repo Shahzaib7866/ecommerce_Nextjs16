@@ -1,0 +1,310 @@
+/* Container Layout */
+.cartitems {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Poppins', sans-serif; /* Modern clean font family */
+}
+
+.cartitems-container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 40px;
+    border: 1px solid #f0f0f0;
+}
+
+/* Headers Styling */
+.cartitems-format-mainHeader {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1fr 1fr 1fr 0.5fr;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 30px;
+    background: #f9fafb;
+    color: #374151;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* Product Rows */
+.cartitems-row-wrapper {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.cartitems-row-wrapper:hover {
+    background-color: #f9fafb;
+}
+
+.cartitems-format {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1fr 1fr 1fr 0.5fr;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 30px;
+    color: #4b5563;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Product Media & Elements */
+.product-img-container {
+    display: flex;
+    align-items: center;
+}
+
+.carticon-product-icon {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.product-price, .product-total-price {
+    font-weight: 600;
+}
+
+.product-total-price {
+    color: #10b981; /* Premium Green for price totals */
+}
+
+/* Modern Quantity Counter Badge */
+.cartitems-quantity {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 38px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Smooth Remove Icon */
+.remove-icon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.cartitems-remove-icon {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+
+.cartitems-remove-icon:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* Bottom Grid Section (Totals & Promocode) */
+.cartitems-down {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    margin-top: 50px;
+    align-items: start;
+}
+
+/* Totals Box */
+.cartitems-total {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cartitems-total h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.total-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.cartitems-total-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    color: #4b5563;
+    font-size: 16px;
+}
+
+.total-box hr {
+    height: 1px;
+    background: #f3f4f6;
+    border: 0;
+}
+
+.free-shipping {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.final-total {
+    color: #1f2937;
+    padding-top: 18px;
+}
+
+.final-total h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Premium Checkout Button */
+.checkout-btn {
+    width: 100%;
+    height: 54px;
+    outline: none;
+    border: none;
+    background: #ff5a5a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(255, 90, 90, 0.3);
+    transition: all 0.2s ease;
+}
+
+.checkout-btn:hover {
+    background: #e04f4f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 90, 90, 0.4);
+}
+
+/* Modern Promo Box */
+.cartitems-promocode {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cartitems-promocode p {
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.cartitems-promobox {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    height: 54px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.cartitems-promobox:focus-within {
+    border-color: #ff5a5a;
+}
+
+.cartitems-promobox input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    padding: 0 20px;
+    color: #1f2937;
+}
+
+.cartitems-promobox button {
+    width: 120px;
+    height: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    background: #1f2937;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cartitems-promobox button:hover {
+    background: #000000;
+}
+
+/* Responsive Tweak for Tablets/Smaller Screens */
+@media (max-width: 992px) {
+    .cartitems-down {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .cartitems {
+        margin: 40px auto;
+    }
+}
+/* ── Size badge in cart ─────────────────────────── */
+.cart-size-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #f0f0f0;
+    color: #333;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+/* ── Qty +/- controls ───────────────────────────── */
+.cart-qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-qty-control button {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #ddd;
+    border-radius: 7px;
+    background: #fff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.cart-qty-control button:hover {
+    border-color: #999;
+    background: #f5f5f5;
+}
+
+/* ── Empty cart msg ─────────────────────────────── */
+.cart-empty-msg {
+    padding: 48px 0;
+    color: #bbb;
+    text-align: center;
+    font-size: 15px;
+}
