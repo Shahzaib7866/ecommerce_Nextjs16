@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import all_product from '../Constants/all_product.js';
+import all_product from '../constants/all_product.js';
 import { ShopContext } from './ShopContextValue'
 
 const ShopContextProvider = (props) => {
