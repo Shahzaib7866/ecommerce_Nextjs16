@@ -17,7 +17,7 @@ const slides = [
     showHandIcon: true,
     btnText: "Latest Collection",
     btnLink: "/",
-    image: getImageUrl("assets/hero_image.png"),
+    image: getImageUrl("/hero_image.png"),
     bg: "linear-gradient(135deg, #fde1ff 0%, #e1ffea44 100%)",
     accent: "#ff4141",
     tag: "ALL",
@@ -31,7 +31,7 @@ const slides = [
     showHandIcon: false,
     btnText: "Shop Men",
     btnLink: "/men",
-    image: getImageUrl("assets/men_removebg.png"),
+    image: getImageUrl("/men_removebg.png"),
     bg: "linear-gradient(135deg, #dde8ff 0%, #eaf0ff 100%)",
     accent: "#2563eb",
     tag: "MEN",
@@ -45,7 +45,7 @@ const slides = [
     showHandIcon: false,
     btnText: "Shop Women",
     btnLink: "/women",
-    image: getImageUrl("assets/hero_image.png"),
+    image: getImageUrl("/hero_image.png"),
     bg: "linear-gradient(135deg, #ffe1f0 0%, #fff0fb 100%)",
     accent: "#db2777",
     tag: "WOMEN",
@@ -97,7 +97,7 @@ const Hero = () => {
             {slide.showHandIcon ? (
               <div className="hero-hand-icon">
                 <p>{slide.line1}</p>
-<img src={getImageUrl("assets/hand_icon.png")} alt="Hand Icon" />
+<img src={getImageUrl("/hand_icon.png")} alt="Hand Icon" />
               </div>
             ) : (
               <p>{slide.line1}</p>
@@ -109,7 +109,7 @@ const Hero = () => {
           <Link href={slide.btnLink} style={{ textDecoration: 'none' }}>
             <div className="hero-latest-btn" style={{ background: slide.accent }}>
               <span>{slide.btnText}</span>
-              <img src={getImageUrl("assets/arrow.png")} alt="Arrow" />
+              <img src={getImageUrl("/arrow.png")} alt="Arrow" />
             </div>
           </Link>
         </div>

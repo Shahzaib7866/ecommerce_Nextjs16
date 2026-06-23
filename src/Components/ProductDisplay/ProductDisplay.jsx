@@ -49,11 +49,11 @@ const ProductDisplay = (props) => {
 
                 <div className="productdisplay-right-star">
                     <div className="stars-wrapper">
-                        <img src={getImageUrl("assets/star_icon.png")} alt="star" />
-                        <img src={getImageUrl("assets/star_icon.png")} alt="star" />
-                        <img src={getImageUrl("assets/star_icon.png")} alt="star" />
-                        <img src={getImageUrl("assets/star_icon.png")} alt="star" />
-                        <img src={getImageUrl("assets/star_dull_icon.png")} alt="star" />
+                        <img src={getImageUrl("/star_icon.png")} alt="star" />
+                        <img src={getImageUrl("/star_icon.png")} alt="star" />
+                        <img src={getImageUrl("/star_icon.png")} alt="star" />
+                        <img src={getImageUrl("/star_icon.png")} alt="star" />
+                        <img src={getImageUrl("/star_dull_icon.png")} alt="star" />
                     </div>
                     <p>(122 Reviews)</p>
                 </div>

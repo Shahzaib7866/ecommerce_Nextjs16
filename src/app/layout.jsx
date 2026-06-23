@@ -4,6 +4,8 @@ import Navbar from '../Components/Navbar/Navbar'
 import Footer from '../Components/Footer/Footer'
 import { Poppins } from 'next/font/google'
 import Providers from '../Components/Providers'
+import CartDrawer from '../Components/cartDrawer/cartdrawer'
+
 
 const poppins = Poppins({ 
   subsets: ['latin'],
@@ -21,6 +23,7 @@ export default function RootLayout({ children }) {
       <body className={poppins.className}>
         <Providers>
           <Navbar />
+          <CartDrawer /> 
           <div style={{ paddingTop: '68px' }}>
             {children}
             <Footer />

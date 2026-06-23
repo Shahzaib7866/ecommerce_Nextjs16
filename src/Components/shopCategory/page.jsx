@@ -85,7 +85,7 @@ const ShopCategory = (props) => {
         <div className="shopcategory-sort-wrapper">
           <div className="shopcategory-sort">
             {sortLabel}
-            <img src={getImageUrl("assets/dropdown_icon.png")} alt="dropdown" />
+            <img src={getImageUrl("/dropdown_icon.png")} alt="dropdown" />
           </div>
 
           <div className="shopcategory-dropdown">

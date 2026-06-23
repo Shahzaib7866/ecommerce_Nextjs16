@@ -12,7 +12,7 @@ const Offers = () => {
         <button>Check Now</button>
       </div>
       <div className='offers-right'>
-        <img src={getImageUrl("assets/exclusive_image.png")} alt="Exclusive Offers" />
+        <img src={getImageUrl("/exclusive_image.png")} alt="Exclusive Offers" />
       </div>
     </div>
   )

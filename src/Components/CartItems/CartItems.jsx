@@ -2,6 +2,8 @@
 import React, { useContext } from 'react'
 import "./Cartitems.css"
 import { ShopContext } from '../../Context/ShopContextValue'
+import { getImageUrl } from '@/constants/cloudinary'; 
+
 import Link from 'next/link'
 
 const CartItems = () => {
@@ -57,7 +59,7 @@ const CartItems = () => {
                                 <div className="remove-icon-container">
                                     <img
                                         className='cartitems-remove-icon'
-                                        src="/assets/cart_cross_icon.png"
+                                        src={getImageUrl("/cart_cross_icon.png")}
                                         onClick={() => removeItemFromCart(product.id, size)}
                                         alt="Remove"
                                     />
@@ -87,9 +89,24 @@ const CartItems = () => {
                             <h3>${getTotalCartAmount().toFixed(2)}</h3>
                         </div>
                     </div>
-                    <Link href='/checkoutform'>
-                        <button className="checkout-btn">Proceed to Checkout</button>
-                    </Link>
+                  {cartRows.length === 0 ? (
+    <button
+        className="checkout-btn"
+        disabled
+        style={{
+            opacity: 0.5,
+            cursor: "not-allowed"
+        }}
+    >
+        Proceed to Checkout
+    </button>
+) : (
+    <Link href='/checkoutform'>
+        <button className="checkout-btn">
+            Proceed to Checkout
+        </button>
+    </Link>
+)}
                 </div>
 
                 <div className="cartitems-promocode">

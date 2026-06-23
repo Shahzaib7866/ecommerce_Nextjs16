@@ -4,6 +4,7 @@ import './relatedproducts.css'
 import { ShopContext } from '../../Context/ShopContextValue'
 import Item from '../Item/Item'
 
+
 const RelatedProducts = ({ category, currentId }) => {
   const { all_product } = useContext(ShopContext)
 
@@ -12,8 +13,6 @@ const RelatedProducts = ({ category, currentId }) => {
     .slice(0, 6)
 
     console.log('category:', category);
-console.log('all_product:', all_product);
-console.log('related:', related);
 
   return (
     <div className='relatedproducts'>

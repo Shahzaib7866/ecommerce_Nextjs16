@@ -1,5 +1,8 @@
 import React from 'react'
 import './footer.css'
+import { getImageUrl } from '@/constants/cloudinary'
+
+
 
 const Footer = () => {
   return (
@@ -11,7 +14,7 @@ const Footer = () => {
         {/* Brand */}
         <div className="footer-brand">
           <div className="footer-logo">
-            <img src="/assets/logo.png" alt="Wearit logo" />
+            <img src={getImageUrl("/logo.png")} alt="Wearit logo" />
             <span>Wearit</span>
           </div>
           <p className="footer-tagline">
@@ -19,13 +22,13 @@ const Footer = () => {
           </p>
           <div className='footer-social-icons'>
             <a href="#" className="footer-icon-box" aria-label="Instagram">
-              <img src="/assets/instagram_icon.png" alt="Instagram" />
+              <img src={getImageUrl("/instagram_icon.png")} alt="Instagram" />
             </a>
             <a href="#" className="footer-icon-box" aria-label="Pinterest">
-              <img src="/assets/pintester_icon.png" alt="Pinterest" />
+              <img src={getImageUrl("/pintester_icon.png")} alt="Pinterest" />
             </a>
             <a href="#" className="footer-icon-box" aria-label="WhatsApp">
-              <img src="/assets/whatsapp_icon.png" alt="WhatsApp" />
+             <img src={getImageUrl("/whatsapp_icon.png")} alt="WhatsApp" />
             </a>
           </div>
         </div>

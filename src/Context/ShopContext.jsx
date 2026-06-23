@@ -1,16 +1,18 @@
-
-// export default ShopContextProvider;
-'use client'  // ← sabse upar
+'use client'
 
 import React, { useState } from 'react';
 import all_product from '../Constants/all_product.js';
 import { ShopContext } from './ShopContextValue'
 
 const ShopContextProvider = (props) => {
-  // cartItems: { "itemId_SIZE": count }  e.g. { "3_M": 2, "5_XL": 1 }
   const [cartItems, setCartItems] = useState({});
 
-  // Add item with size
+  // 🆕 CART DRAWER STATE
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
+
   const addtoCart = (itemId, size) => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => ({
@@ -19,7 +21,6 @@ const ShopContextProvider = (props) => {
     }));
   };
 
-  // Remove one quantity
   const removeFromCart = (itemId, size) => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => {
@@ -33,7 +34,6 @@ const ShopContextProvider = (props) => {
     });
   };
 
-  // Remove entire row
   const removeItemFromCart = (itemId, size) => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => {
@@ -64,8 +64,8 @@ const ShopContextProvider = (props) => {
   };
 
   const clearCart = () => {
-  setCartItems({})
-}
+    setCartItems({});
+  };
 
   const contextValue = {
     getTotalCartItems,
@@ -76,6 +76,12 @@ const ShopContextProvider = (props) => {
     removeFromCart,
     removeItemFromCart,
     clearCart,
+
+    // 🆕 EXPORTS
+    isCartOpen,
+    setIsCartOpen,
+    openCart,
+    closeCart,
   };
 
   return (
@@ -86,9 +92,3 @@ const ShopContextProvider = (props) => {
 };
 
 export default ShopContextProvider;
-
-
-
-
-
-

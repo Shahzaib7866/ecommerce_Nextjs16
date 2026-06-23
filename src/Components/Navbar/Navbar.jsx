@@ -9,7 +9,6 @@ import Link from 'next/link'
 import { getImageUrl } from '@/constants/cloudinary'
 
 
-
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -18,7 +17,7 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const pathname = usePathname();
 
-  const { getTotalCartItems } = useContext(ShopContext);
+  const { getTotalCartItems, openCart } = useContext(ShopContext);
 
   const getActiveMenu = () => {
     if (pathname === '/') return 'shop';
@@ -50,7 +49,7 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${visible ? 'nav-visible' : 'nav-hidden'}`}>
       {/* Logo */}
       <Link href='/' className='nav-logo' onClick={() => setMobileMenuOpen(false)}>
-<img src={getImageUrl("assets/logo.png")} alt="Wearit logo" />
+<img src={getImageUrl("logo.png")} alt="Wearit logo" />
         <span>Wearit</span>
       </Link>
 
@@ -71,12 +70,16 @@ const Navbar = () => {
           )}
           <CiSearch onClick={() => setShowSearch(!showSearch)} className="search-icon" />
         </div>
-        <Link href='/cart' className='cart-wrapper'>
-          <img src={getImageUrl("assets/cart_icon.png")} alt="Cart" />
+
+<div className='cart-wrapper' onClick={openCart}>
+
+        {/* <Link href='/cart' className='cart-wrapper'> */}
+          <img src={getImageUrl("cart_icon.png")} alt="Cart" />
           {getTotalCartItems() > 0 && (
             <span className='cart-badge'>{getTotalCartItems()}</span>
           )}
-        </Link>
+        {/* </Link> */}
+        </div>
       </div>
 
       {/* Hamburger */}
@@ -102,7 +105,7 @@ const Navbar = () => {
             <CiSearch onClick={() => setShowSearch(!showSearch)} className="search-icon" />
           </div>
           <Link href='/cart' className='mobile-cart' onClick={() => setMobileMenuOpen(false)}>
-            <img src="/assets/cart_icon.png" alt="Cart" />
+            <img src="cart_icon.png" alt="Cart" />
             <span>Cart</span>
             {getTotalCartItems() > 0 && (
               <span className='cart-badge'>{getTotalCartItems()}</span>
