@@ -1,7 +1,7 @@
 'use client'
 import { useState, useContext } from 'react'
 import './checkoutform.css'
-import { ShopContext } from '../../Context/ShopContextValue'
+import { ShopContext } from '../../context/ShopContextValue'
 import { useRouter } from 'next/navigation'  // ← add karo
 
 

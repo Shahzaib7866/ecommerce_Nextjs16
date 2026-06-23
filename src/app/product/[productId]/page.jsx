@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { ShopContext } from '../../../Context/ShopContextValue'
+import { ShopContext } from '../../../context/ShopContextValue'
 import { useParams } from 'next/navigation'
 import Breadcrums from '../../../Components/Breadcrums/Breadcrums'
 import ProductDisplay from '../../../Components/ProductDisplay/ProductDisplay'

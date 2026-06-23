@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import './Hero.css'
 import Link from 'next/link'
 import ImageWithLoader from '../ImageWithLoader';
-import { getImageUrl } from '../../constants/cloudinary'
+import { getImageUrl } from '@/src/constants/cloudinary'
 
 
 const slides = [

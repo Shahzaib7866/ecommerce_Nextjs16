@@ -1,7 +1,7 @@
 
 import React from 'react'
 import './Breadcrum.css'
-import { getImageUrl } from '../../constants/cloudinary'
+import { getImageUrl } from '@/src/constants/cloudinary'
 
 
 const Breadcrums = (props) => {

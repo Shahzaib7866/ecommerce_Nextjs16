@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import all_product from '../constants/all_product.js';
-import { ShopContext } from './ShopContextValue'
+import { ShopContext } from './ShopContextValue.js'
 
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});

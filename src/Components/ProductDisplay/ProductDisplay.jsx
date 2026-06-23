@@ -1,8 +1,8 @@
 'use client'
 import React, { useContext, useState } from 'react'
 import './productdisplay.css'
-import { ShopContext } from '../../Context/ShopContextValue'
-import { getImageUrl } from '../../constants/cloudinary'
+import { ShopContext } from '../../context/ShopContextValue'
+import { getImageUrl } from '@/src/constants/cloudinary'
 
 const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
 

@@ -3,7 +3,7 @@
 
 import React, { useContext } from 'react'
 import './cartdrawer.css'
-import { ShopContext } from '../../Context/ShopContextValue'
+import { ShopContext } from '../../context/ShopContextValue'
 import Link from 'next/link'
 
 const CartDrawer = () => {

@@ -2,11 +2,11 @@
 
 import React, { useContext, useState, useEffect } from 'react'
 import './Navbar.css'
-import { ShopContext } from '../../Context/ShopContextValue'
+import { ShopContext } from '../../context/ShopContextValue'
 import { CiSearch } from "react-icons/ci";
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { getImageUrl } from '../../constants/cloudinary'
+import { getImageUrl } from '@/src/constants/cloudinary'
 
 
 const Navbar = () => {

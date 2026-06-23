@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext } from 'react'
 import './relatedproducts.css'
-import { ShopContext } from '../../Context/ShopContextValue'
+import { ShopContext } from '../../context/ShopContextValue'
 import Item from '../Item/Item'
 
 
