@@ -105,7 +105,7 @@ const Navbar = () => {
             <CiSearch onClick={() => setShowSearch(!showSearch)} className="search-icon" />
           </div>
           <Link href='/cart' className='mobile-cart' onClick={() => setMobileMenuOpen(false)}>
-            <img src="cart_icon.png" alt="Cart" />
+             <img src={getImageUrl("cart_icon.png")} alt="Cart" />
             <span>Cart</span>
             {getTotalCartItems() > 0 && (
               <span className='cart-badge'>{getTotalCartItems()}</span>
