@@ -1,6 +1,6 @@
 import React from 'react'
 import './footer.css'
-import { getImageUrl } from '@/constants/cloudinary'
+import { getImageUrl } from '../../constants/cloudinary'
 
 
 
