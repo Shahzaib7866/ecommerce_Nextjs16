@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import "./Cartitems.css"
 import { ShopContext } from '../../context/ShopContextValue'
-import { getImageUrl } from '@/src/constants/cloudinary'; 
+import { getImageUrl } from '@/constants/cloudinary'; 
 
 import Link from 'next/link'
 

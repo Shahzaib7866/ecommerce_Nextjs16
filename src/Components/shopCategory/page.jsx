@@ -4,7 +4,7 @@ import React, { useContext, useState, useMemo, useEffect } from 'react'
 import './shopcategory.css'
 import { ShopContext } from '../../context/ShopContextValue'
 import Item from '../Item/Item'
-import { getImageUrl } from '@/src/constants/cloudinary'
+import { getImageUrl } from '@/constants/cloudinary'
 
 const INITIAL_COUNT = 9;
 const LOAD_MORE_COUNT = 6;
