@@ -1,7 +1,6 @@
 import React from 'react'
 import './offers.css'
-import { getImageUrl } from '@/src/constants/cloudinary'
-
+import { getImageUrl } from '@/constants/cloudinary'
 const Offers = () => {
   return (
     <div className='offers'>

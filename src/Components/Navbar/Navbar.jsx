@@ -6,8 +6,7 @@ import { ShopContext } from '../../context/ShopContextValue'
 import { CiSearch } from "react-icons/ci";
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { getImageUrl } from '@/src/constants/cloudinary'
-
+import { getImageUrl } from '@/constants/cloudinary'
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

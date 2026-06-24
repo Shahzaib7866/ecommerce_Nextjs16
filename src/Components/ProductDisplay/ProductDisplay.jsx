@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react'
 import './productdisplay.css'
 import { ShopContext } from '../../context/ShopContextValue'
-import { getImageUrl } from '@/src/constants/cloudinary'
+import { getImageUrl } from '@/constants/cloudinary'
 
 const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
 

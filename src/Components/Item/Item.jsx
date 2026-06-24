@@ -3,7 +3,7 @@ import React from 'react'
 import './item.css'
 import ImageWithLoader from '../ImageWithLoader';
 import Link from 'next/link'
-import { getImageUrl } from '@/src/constants/cloudinary'; 
+import { getImageUrl } from '@/constants/cloudinary'
 
 const Item = (props) => {
   // Logic: Agar image URL pehle se full hai, toh wahi use karein,

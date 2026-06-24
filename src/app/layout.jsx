@@ -1,10 +1,10 @@
 
 import './globals.css'
-import Navbar from '../Components/Navbar/Navbar'
-import Footer from '../Components/Footer/Footer'
+import Navbar from '../components/Navbar/Navbar'
+import Footer from '../components/Footer/Footer'
 import { Poppins } from 'next/font/google'
-import Providers from '../Components/Providers'
-import CartDrawer from '../Components/cartDrawer/cartdrawer'
+import Providers from '../components/Providers'
+import CartDrawer from '../components/cartDrawer/cartdrawer'
 
 
 const poppins = Poppins({ 

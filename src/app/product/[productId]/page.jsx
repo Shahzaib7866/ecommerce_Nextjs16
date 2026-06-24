@@ -2,10 +2,10 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../../../context/ShopContextValue'
 import { useParams } from 'next/navigation'
-import Breadcrums from '../../../Components/Breadcrums/Breadcrums'
-import ProductDisplay from '../../../Components/ProductDisplay/ProductDisplay'
-import DescriptionBox from '../../../Components/DescriptionBox/DescriptionBox'
-import RelatedProducts from '../../../Components/RelatedProducts/RelatedProducts'
+import Breadcrums from '../../../components/Breadcrums/Breadcrums'
+import ProductDisplay from '../../../components/ProductDisplay/ProductDisplay'
+import DescriptionBox from '../../../components/DescriptionBox/DescriptionBox'
+import RelatedProducts from '../../../components/RelatedProducts/RelatedProducts'
 
 const Product = () => {
   const { all_product } = useContext(ShopContext)
