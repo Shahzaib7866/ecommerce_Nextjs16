@@ -7,6 +7,10 @@ import { CiSearch } from "react-icons/ci";
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { getImageUrl } from '@/constants/cloudinary'
+import Image from 'next/image';
+
+
+
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -45,10 +49,17 @@ const Navbar = () => {
   }, []);
 
   return (
+
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${visible ? 'nav-visible' : 'nav-hidden'}`}>
       {/* Logo */}
-      <Link href='/' className='nav-logo' onClick={() => setMobileMenuOpen(false)}>
-<img src={getImageUrl("logo.png")} alt="Wearit logo" />
+     <Link href='/' className='nav-logo' onClick={() => setMobileMenuOpen(false)}>
+        <Image 
+          src={getImageUrl("logo.png")} 
+          alt="Wearit logo" 
+          width={38} 
+          height={38} 
+          priority // Logo top par hota hai, isliye priority zaroori hai
+        />
         <span>Wearit</span>
       </Link>
 
@@ -71,14 +82,17 @@ const Navbar = () => {
         </div>
 
 <div className='cart-wrapper' onClick={openCart}>
+        <Image 
+          src={getImageUrl("cart_icon.png")} 
+          alt="Cart" 
+          width={22} 
+          height={22} 
+        />
+        {getTotalCartItems() > 0 && (
+          <span className='cart-badge'>{getTotalCartItems()}</span>
+        )}
+      </div>
 
-        {/* <Link href='/cart' className='cart-wrapper'> */}
-          <img src={getImageUrl("cart_icon.png")} alt="Cart" />
-          {getTotalCartItems() > 0 && (
-            <span className='cart-badge'>{getTotalCartItems()}</span>
-          )}
-        {/* </Link> */}
-        </div>
       </div>
 
       {/* Hamburger */}
@@ -103,13 +117,20 @@ const Navbar = () => {
             )}
             <CiSearch onClick={() => setShowSearch(!showSearch)} className="search-icon" />
           </div>
-          <Link href='/cart' className='mobile-cart' onClick={() => setMobileMenuOpen(false)}>
-             <img src={getImageUrl("cart_icon.png")} alt="Cart" />
-            <span>Cart</span>
-            {getTotalCartItems() > 0 && (
+
+<Link href='/cart' className='mobile-cart' onClick={() => setMobileMenuOpen(false)}>
+         <Image 
+           src={getImageUrl("cart_icon.png")} 
+           alt="Cart" 
+           width={18} 
+           height={18} 
+         />
+         <span>Cart</span>
+        {getTotalCartItems() > 0 && (
               <span className='cart-badge'>{getTotalCartItems()}</span>
             )}
-          </Link>
+      </Link>
+
         </div>
       </div>
 

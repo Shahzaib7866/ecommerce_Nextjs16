@@ -29,3 +29,11 @@
     transform: scale(1.05);
     transition: 0.6s;
 }
+
+.product-image {
+  border-radius: 10px; /* Agar rounded corners chahiye */
+  transition: transform 0.3s ease;
+}
+.item:hover .product-image {
+  transform: scale(1.05); /* Effect ke liye */
+}

@@ -1,13 +1,11 @@
 'use client'
 import React from 'react'
 import './item.css'
-import ImageWithLoader from '../ImageWithLoader';
+import Image from 'next/image' // next/image import karein
 import Link from 'next/link'
 import { getImageUrl } from '@/constants/cloudinary'
 
 const Item = (props) => {
-  // Logic: Agar image URL pehle se full hai, toh wahi use karein,
-  // warna getImageUrl() chalayein.
   const imageSource = props.image.startsWith('http') 
     ? props.image 
     : getImageUrl(props.image);
@@ -15,7 +13,16 @@ const Item = (props) => {
   return (
     <div className='item'>
       <Link href={`/product/${props.id}`} onClick={() => window.scrollTo(0, 0)}>
-        <ImageWithLoader src={imageSource} alt={props.name} />
+        <div style={{ position: 'relative', width: '100%', height: '450px' }}> {/* Container size zaroori hai */}
+          <Image 
+            src={imageSource} 
+            alt={props.name} 
+            fill // Container ke size ke hisaab se fill karega
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            style={{ objectFit: 'cover' }} // Image ko stretch hone se bachane ke liye
+            className="product-image"
+          />
+        </div>
       </Link>
       
       <p>{props.name}</p>
@@ -28,5 +35,8 @@ const Item = (props) => {
 }
 
 export default Item
+
+
+
 
 
