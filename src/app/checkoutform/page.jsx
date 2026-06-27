@@ -9,7 +9,7 @@ const CheckoutForm = () => {
 
     const { getTotalCartAmount, clearCart } = useContext(ShopContext)
     const [paymentMethod, setPaymentMethod] = useState("cod");
-  const router = useRouter()  // ← add karo
+  const router = useRouter();
 
 
   const handleSubmit = (e) => {
@@ -26,7 +26,7 @@ const CheckoutForm = () => {
       <div className="checkout-layout">
         
         {/* Left Side: Form Details */}
-        <form className="checkout-form" onSubmit={handleSubmit}>
+        <form className="checkout-form" onSubmit={handleSubmit} method='post'>
           
           {/* Section 1: Contact Information */}
           <div className="form-section">
