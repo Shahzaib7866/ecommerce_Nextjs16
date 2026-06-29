@@ -245,25 +245,24 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
+  width: 60px;  /* Size bada kiya */
+  height: 60px; /* Size bada kiya */
+  border: none;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #222;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   z-index: 10;
 }
 
 .carousel-arrow:hover {
-  background: rgba(255,255,255,0.95);
-  border-color: rgba(0,0,0,0.25);
-  transform: translateY(-50%) scale(1.08);
+  /* Hover par halka effect dene ke liye opacity use kar sakte hain */
+  background: transparent;
+  transform: translateY(-50%) scale(1.1);
+  opacity: 0.7;
 }
 
 .carousel-arrow-left  { left: 24px; }
