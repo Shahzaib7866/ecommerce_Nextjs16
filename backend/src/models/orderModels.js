@@ -1,6 +1,5 @@
 
 import mongoose from 'mongoose'
-import { unique } from 'next/dist/build/utils'
 
 
 const orderSchema = new mongoose.Schema({
@@ -31,6 +30,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    
     category:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Categorym"

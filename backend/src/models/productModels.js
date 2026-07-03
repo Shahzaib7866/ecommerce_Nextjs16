@@ -1,8 +1,6 @@
 
 
 import mongoose from 'mongoose'
-import { unique } from 'next/dist/build/utils'
-
 
 const productSchema = new mongoose.Schema({
     name: {
