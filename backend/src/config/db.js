@@ -4,13 +4,11 @@ import { DB_NAME } from '../constants.js';
 const connectDB = async () => {
 
     try {
-        const dbConnectionObject = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
+        const dbConnectionObject = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`);
 
         console.log(`\n Mongodb connected !! DB HOST: ${dbConnectionObject.connection.host} \n`);//production ki bajahy kisi or db mein connect ho jahun tu pata krny k liye k kon se host mein connect huva hun
 
-        console.log(dbConnectionObject);
-        
-        
+        // console.log(dbConnectionObject);
         
     } catch (error) {
         console.error("db connection failed ", error);
