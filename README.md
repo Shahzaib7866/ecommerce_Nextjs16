@@ -6,6 +6,15 @@ Shopping Cart with Redux, Product Listing & Filtering, Mock Checkout Flow
 How to run:
 just go into the root of directory and enter command "npm run dev" ....
 
+i have deployed it on vercel as well
+
+after one week when i run frontend again it start panicing and reloading within a time of fractions. when i debug i figure out the issue is with 
+Turbopack crashes on edge cases.
+to stable Developement enviroment use Webpack as it is more mature.
+
+All we need to do use this "dev": "next dev --webpack", in scripts of package.json
+
+
 ## React Compiler
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
