@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { unique } from 'next/dist/build/utils'
+// import { unique } from 'next/dist/build/utils'
 
 
 const userSchema = new mongoose.Schema({
@@ -34,6 +34,5 @@ const userSchema = new mongoose.Schema({
 
 
 
-export const Userm = mongoose.model("Userm", userSchema)
-
-
+const Userm = mongoose.model("Userm", userSchema)
+export default Userm

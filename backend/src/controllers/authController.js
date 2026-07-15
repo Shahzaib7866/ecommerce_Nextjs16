@@ -34,7 +34,11 @@ const registerUser = async (req, res) => {
 
             const message = `Welcome to WearIt, ${username}! Your OTP for registration is: ${otp}`;
 
-            await sendEmail(email, "Welcome to WearIt - OTP Verification", message);
+           await sendEmail({
+    to: email,
+    subject: "Welcome to WearIt - OTP Verification",
+    text: message
+});
 
             res.status(201).json({ 
                 _id: newUser._id,
@@ -94,7 +98,7 @@ const getUsers = async (req, res) => {
 }
 
 
-export default { registerUser, loginUser, getUsers };
+export { registerUser, loginUser, getUsers };
 
 
 

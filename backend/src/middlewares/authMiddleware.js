@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Userm from "../models/userModel.js";
+import Userm from "../models/userModels.js";
 
 
 // "protect" middleware — ye check karega ke request bhejne wala login hai ya nahi
