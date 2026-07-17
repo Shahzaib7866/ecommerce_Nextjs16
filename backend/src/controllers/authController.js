@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken';
 const genToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "7d"});
 }
-
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -62,7 +61,6 @@ const registerUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
 //login user
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
@@ -85,7 +83,6 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
 //get all user
 const getUsers = async (req, res) => {
     try {
@@ -96,8 +93,6 @@ const getUsers = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
-
 export { registerUser, loginUser, getUsers };
 
 

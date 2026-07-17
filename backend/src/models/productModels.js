@@ -3,7 +3,7 @@
 import mongoose from 'mongoose'
 
 const productSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
     },
@@ -11,8 +11,9 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    productImage: {
-        type: String
+    productImageURL: {
+        type: String,
+        required: true
     },
     price: {
         type: Number,
@@ -20,11 +21,15 @@ const productSchema = new mongoose.Schema({
     },
     stock: {
         default: 0,
-        type: Number,
+        type: Number
     },
     category:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Categorym"
+    },
+    rating: {
+        default: 0,
+        type: Number
     },
      owner:{
         type: mongoose.Schema.Types.ObjectId,
