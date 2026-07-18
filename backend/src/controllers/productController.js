@@ -4,7 +4,7 @@ import cloudinary from "../config/cloudinary.js";
 
 const createProduct = async (req, res) => {
     try {
-        const { name, description, price, stock, category } = req.body;
+        const { title, description, price, stock, category } = req.body;
 
         const productImage = req.file; //if using multer to handle file uploads
 
@@ -17,7 +17,7 @@ const createProduct = async (req, res) => {
         }
 
         const newProduct = await Productm.create({
-            name,
+            title,
             description,
             price,
             stock,
@@ -62,13 +62,13 @@ const getProductById = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, description, price, stock, category } = req.body;
+        const { title, description, price, stock, category } = req.body;
 
          // Sirf wahi fields updateData me daalo jo actually bheji gayi hain
         // Isse partial update sahi kaam karega (missing fields undefined ban ke DB overwrite nahi karengi)
         const updateData = {};
 
-        if (name !== undefined) updateData.name = name;
+        if (title !== undefined) updateData.name = name;
         if (description !== undefined) updateData.description = description;
         if (price !== undefined) updateData.price = price;
         if (stock !== undefined) updateData.stock = stock;
