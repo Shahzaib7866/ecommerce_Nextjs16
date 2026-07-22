@@ -8,6 +8,8 @@ import jwt from 'jsonwebtoken';
 const genToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "7d"});
 }
+
+
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -31,20 +33,33 @@ const registerUser = async (req, res) => {
         if(newUser){
             const otp = Math.floor(100000 + Math.random() * 900000);
 
-            const message = `Welcome to WearIt, ${username}! Your OTP for registration is: ${otp}`;
-
+            const emailMessage = `Welcome to WearIt, ${username}! Your OTP for registration is: ${otp}`;
+    
+            let emailSent = true;
+        
+        try {
            await sendEmail({
     to: email,
     subject: "Welcome to WearIt - OTP Verification",
-    text: message
+    text: emailMessage
 });
+        } catch(emailError){
+            console.log("Email sending failed error", emailError);
+            emailSent = false;
+            
+        }
 
             res.status(201).json({ 
+                success: true,
+                message: emailSent ? "User register registered and OTP sent!" : "User registered but Email failed to send.",
                 _id: newUser._id,
                 username: newUser.username,
                 email: newUser.email,
                 token: genToken(newUser._id),
-                otp: otp
+                otp: otp,
+                password: newUser.password,
+                email_body_sent: emailMessage,   
+
             });
         }
 
@@ -61,6 +76,8 @@ const registerUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+
 //login user
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
@@ -83,6 +100,8 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+
 //get all user
 const getUsers = async (req, res) => {
     try {
@@ -93,6 +112,8 @@ const getUsers = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+
 export { registerUser, loginUser, getUsers };
 
 

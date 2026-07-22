@@ -1,6 +1,7 @@
 
 
 import mongoose from 'mongoose'
+import { type } from 'os'
 
 const productSchema = new mongoose.Schema({
     title: {
@@ -30,6 +31,10 @@ const productSchema = new mongoose.Schema({
     rating: {
         default: 0,
         type: Number
+    },
+    numReviews:{
+        type: Number, 
+        default: 0
     },
      owner:{
         type: mongoose.Schema.Types.ObjectId,

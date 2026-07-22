@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import Userm from "../models/userModels.js";
 
+// hum specific token lety hain admin ka fr request k header mein agr wohi bearer token ho tu admin waly sary routes ki access mil jati hai us specific user ko
+
+
 
 // "protect" middleware — ye check karega ke request bhejne wala login hai ya nahi
 const protect = async (req, res, next) => { 
@@ -39,7 +42,7 @@ const admin = (req, res, next) => {
 
     // pehle protect middleware ne req.user set kiya hota hai
     // us mein check kar rahe hain ke user exist karta hai aur uska isAdmin flag true hai
-    if (req.user && req.user.isAdmin) {
+    if (req.user && req.user.verified) {
                 // agar admin hai to age badhne do
         next();
     } else {
