@@ -25,8 +25,9 @@ const productSchema = new mongoose.Schema({
         type: Number
     },
     category:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Categorym"
+        type: String,
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: "Categorym"
     },
     rating: {
         default: 0,
