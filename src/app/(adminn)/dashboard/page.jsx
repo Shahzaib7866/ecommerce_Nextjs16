@@ -1,6 +1,7 @@
 
 "use client"
 import React, { useContext, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import './admin.css'
 import DashBox from '../../../components/admin/DashboardBox/DashBox'
 import { FiPlus } from 'react-icons/fi'
@@ -26,6 +27,7 @@ import {
 const page = () => {
   const { theme } = useContext(ThemeContext);
   const [selectedProfit, setSelectedProfit] = useState(0);
+  const router = useRouter(); 
 
   // --- Data ---
   const profileData = [
@@ -122,9 +124,12 @@ const page = () => {
           <h1>Good Morning, <br/> Cameron</h1>
           <p>Welcome back! Here's what's happening today.</p>
           <div>
-            <Button variant="text">
-              <FiPlus size={20} style={{ marginRight: '8px' }} /> Add Product 
-            </Button>
+   <Button 
+          variant="text" 
+          onClick={() => router.push('/products/add')}
+        >
+          <FiPlus size={20} style={{ marginRight: '8px' }} /> Add Products 
+        </Button>
           </div>
         </div>
 
@@ -181,6 +186,7 @@ const page = () => {
                     <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                   </linearGradient>
                 </defs>
+                
                 <Tooltip />
                 <Area type="monotone" dataKey="uv" stroke='#8884d8' fill="url(#colorValue)" />
               </AreaChart>

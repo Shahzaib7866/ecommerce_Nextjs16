@@ -107,7 +107,7 @@ export const sidebarMenu = [
   },
   {
     title: "Mails",
-    href: "/ mails",
+    href: "/mails",
     icon: <MarkEmailUnreadTwoToneIcon fontSize="medium" />,
   },
   {
@@ -121,7 +121,7 @@ export const sidebarMenu = [
 //   {
 //     orderId: "8768",
 //     customer: {
-      
+
 //     }
 //   }
 // ]
