@@ -1,46 +1,214 @@
 
-
-.add-product-page{
-    width: auto;
-        height: 550px;
-        padding: 0.75rem;
-        margin-right: 0.75rem;
-        margin-left: 0.75rem;
-        margin-bottom: 1rem;
-        /* mb-4 */
-        border-radius: 0.375rem;
-        /* rounded-md */
-        border: 1px solid rgba(0, 0, 0, 0.2);
-
-        background-color: #ffffff;
-        color: #111827;
-        box-sizing: border-box;
-        transition: width 0.3s ease;
+/* General Reset & Box Sizing */
+* {
+    box-sizing: border-box;
 }
 
-.add-product-header{
+/* Page Wrapper */
+.add-product-page {
+    width: 100%;
+    min-height: calc(100vh - 40px);
+    height: auto;
+    padding: 24px;
+    margin: 0 auto 24px auto;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    /* Modern light background */
+    color: #111827;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Header Section */
+.add-product-header {
     display: flex;
     flex-direction: column;
-    
+    gap: 4px;
 }
 
+.add-product-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.add-product-span {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Divider Line */
 .my-line {
     border: none;
-    height: 2px;
-    /* Line ki motai (thickness) */
+    height: 1px;
     background-color: #e5e7eb;
-    /* Line ka color */
     width: 100%;
-    /* Yahan se aap lambai control kar sakte hain (e.g., 100%, 80%, ya 500px) */
     margin: 20px 0;
-    /* Upar aur neeche spacing */
 }
 
+/* Section Title */
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 16px;
+}
 
+/* Main Form Wrapper (Side-by-Side Flex) */
+.add-product-form-wrapper {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    width: 100%;
+}
 
+/* Left Form Section */
+.product-form-fields {
+    flex: 2;
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
 
+/* Right Sidebar Section (Media + Attributes) */
+.product-media-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
 
+.product-media,
+.product-attributes {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
 
+/* Form Groups & Labels */
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #374151;
+    font-size: 13px;
+}
 
+/* Form Inputs & Textareas */
+.form-control {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Form Row (Side-by-side inputs) */
+.form-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Typography Inside Media Box */
+.product-media h3,
+.product-attributes h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+.product-media p {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+/* Modern File Upload Box Styling */
+.media-upload-box {
+    position: relative;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8fafc;
+    transition: border-color 0.2s;
+}
+
+.media-upload-box:hover {
+    border-color: #2563eb;
+}
+
+.file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (Tablets & Mobiles)
+   ========================================== */
+
+@media screen and (max-width: 968px) {
+    .add-product-form-wrapper {
+        flex-direction: column;
+        /* Tablet aur mobile par dono sections ek ke neeche ek aa jayenge */
+    }
+
+    .product-form-fields,
+    .product-media-sidebar {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        /* Choti mobile screen par row ke inputs bhi vertically stack ho jayenge */
+        gap: 0;
+    }
+
+    .add-product-page {
+        padding: 12px;
+    }
+}
 
