@@ -180,7 +180,7 @@ const Page = () => {
                   name='category' 
                   id='product-category' 
                   className='form-control' 
-                  placeholder="e.g. Electronics"
+                  placeholder="Men, Women, Kids, etc."
                   value={formData.category}
                   onChange={handleInputChange}
                   required
@@ -210,7 +210,7 @@ const Page = () => {
                   name='price' 
                   id='product-price' 
                   className='form-control' 
-                  placeholder="$0.00"
+                  placeholder="0.00Rs"
                   value={formData.price}
                   onChange={handleInputChange}
                   required
@@ -224,7 +224,7 @@ const Page = () => {
                   name='discountedPrice' 
                   id='product-discounted-price' 
                   className='form-control' 
-                  placeholder="$0.00"
+                  placeholder="0.00Rs"
                   value={formData.discountedPrice}
                   onChange={handleInputChange}
                 />
