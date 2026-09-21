@@ -33,3 +33,9 @@ If you are developing a production application, we recommend using TypeScript wi
 problem i faced:
 # new routes of admin were not working so 
 # Clear the Next.js Build Cache
+
+
+ab frontend ph product upload form bna diya tu sb se pehly form ki state management krin gy like data collect krna taaky 
+esko aik package(FormData, Kyunki hum ismein Files (Images & Videos) bhi bhej rahe hain, isliye normal JSON object ki bajaye FormData use karna zaroori hota hai) ki soort mein pack hokar backend par API ke zariye bheja ja sakega.
+
+
