@@ -2,20 +2,41 @@ import Productm from "../models/productModels.js";
 import { cloudinary, uploadtoCloudinary } from "../config/cloudinary.js";
 
 const createProduct = async (req, res) => {
-  console.log("REQ.FILE (Multer File):", req.file);
+  console.log("REQ.FILES (Multer Files):", req.files);
 
   try {
     const { title, description, price, stock, category } = req.body;
 
-    const productImage = req.file; //if using multer to handle file uploads
+    const files = req.files; // Multer ab `req.files` use karega (array of files)
 
-    let productImageURL;
+    if (!files || files.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Please upload at least one product image." });
+    }
 
-    if (productImage) {
-      // Upload image to Cloudinary
-      const cloudinaryResponse = await uploadtoCloudinary(productImage.path);
-      console.log("Cloudinary upload result:", cloudinaryResponse);
-      productImageURL = cloudinaryResponse.secure_url;
+    let imageUrls = [];
+    let videoUrl = "";
+
+    // Loop chala kar har file ko Cloudinary par upload karenge
+    for (const file of files) {
+      const cloudinaryResponse = await uploadtoCloudinary(file.path);
+
+      if (cloudinaryResponse) {
+        // Agar file video hai toh videoUrl mein daal do, warna images array mein
+        if (file.mimetype.startsWith("video/")) {
+          videoUrl = cloudinaryResponse.secure_url;
+        } else {
+          imageUrls.push(cloudinaryResponse.secure_url);
+        }
+      }
+    }
+
+    // Validation: Check karein ke kam az kam 1 image zaroor aayi ho
+    if (imageUrls.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "At least one valid image is required." });
     }
 
     const newProduct = await Productm.create({
@@ -24,15 +45,20 @@ const createProduct = async (req, res) => {
       price,
       stock,
       category,
-      productImageURL,
+      images: imageUrls, // Array of image URLs
+      video: videoUrl, // Optional video URL
     });
 
-    res.status(201).json(newProduct);
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully!",
+      product: newProduct,
+    });
   } catch (error) {
     console.error("Error creating product:", error);
     res
       .status(500)
-      .json({ error: error.message, message: "new products not added" });
+      .json({ error: error.message, message: "New product not added" });
   }
 };
 

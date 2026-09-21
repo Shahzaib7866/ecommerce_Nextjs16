@@ -25,7 +25,7 @@ const router = express.Router();
 router
   .route("/")
   .get(getAllProducts)
-  .post(upload.single("image"), createProduct);
+  .post(upload.array("mediaFiles", 5), createProduct);
 
 // router.post("/", protect, admin, upload.single("image"), createProduct);
 // router.get("/", protect, admin, getAllProducts);

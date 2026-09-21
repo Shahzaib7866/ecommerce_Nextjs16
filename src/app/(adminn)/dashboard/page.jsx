@@ -1,5 +1,4 @@
-
-"use client"
+'use client';
 import React, { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import './admin.css'

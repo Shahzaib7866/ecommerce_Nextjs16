@@ -1,8 +1,7 @@
-
 'use client';
 import React, { useState } from 'react';
 import './prodadd.css';
-import { FiPlus, FiTrash2, FiVideo } from 'react-icons/fi';
+import { FiPlus, FiTrash2, FiVideo, FiX } from 'react-icons/fi';
 
 const Page = () => {
   // 1. Text Inputs ke liye State
@@ -17,10 +16,14 @@ const Page = () => {
     color: ''
   });
 
-  // 2. Media Files aur Error states
+  // 2. Media Files, Error, Loading aur Preview Modal states
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  // Preview Pop-up state (Yeh data store karega jo modal mein dikhana hai)
+  const [previewData, setPreviewData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Text inputs handle karne ka common function
   const handleInputChange = (e) => {
@@ -36,13 +39,11 @@ const Page = () => {
     const files = Array.from(e.target.files);
     setErrorMessage('');
 
-    // Check total limit (Max 4 images + 1 video = 5 files max)
     if (selectedFiles.length + files.length > 5) {
       setErrorMessage('You can upload a maximum of 4 images and 1 video.');
       return;
     }
 
-    // Validate video duration (Max 10 seconds)
     files.forEach(file => {
       if (file.type.startsWith('video/')) {
         const videoElement = document.createElement('video');
@@ -65,36 +66,55 @@ const Page = () => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  // 3. Form Submit aur FormData handling function
+  // 3. Form Submit & Database Saving Function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // FormData object create kar rahe hain jo text data aur files dono ko carry karega
       const dataToSend = new FormData();
 
-      // Saare text fields formData mein append kar rahe hain
+      // Saare text fields append karna
       Object.keys(formData).forEach(key => {
         dataToSend.append(key, formData[key]);
       });
 
-      // Saari selected files (images & video) formData mein append kar rahe hain
+      // Saari files append karna
       selectedFiles.forEach((file) => {
-        dataToSend.append('mediaFiles', file); // 'mediaFiles' backend ka key name hoga
+        dataToSend.append('mediaFiles', file);
       });
 
-      // Node.js Backend API Endpoint par request bhej rahe hain
-      const response = await fetch('http://localhost:5000/api/products/create', {
+      // Backend API call
+      const response = await fetch('http://localhost:8000/api/products', {
         method: 'POST',
-        body: dataToSend, // Note: FormData bhejte waqt headers mein Content-Type set nahi karte, browser khud handle karta hai
+        body: dataToSend,
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        alert('Product added successfully!');
-        // Form reset kar sakte hain yahan
+        // Data successfully DB mein save ho gaya!
+        // Ab modal ke liye data set karte hain
+        setPreviewData({
+          ...formData,
+          files: selectedFiles.map(file => URL.createObjectURL(file))
+        });
+        
+        setIsModalOpen(true); // Pop-up card open kar do
+
+        // Fields ko khali (reset) kar do aglay product ke liye
+        setFormData({
+          title: '',
+          description: '',
+          category: '',
+          stock: '',
+          price: '',
+          discountedPrice: '',
+          size: '',
+          color: ''
+        });
+        setSelectedFiles([]);
+
       } else {
         alert(result.message || 'Something went wrong!');
       }
@@ -121,7 +141,6 @@ const Page = () => {
       <div className='add-product-container'>
         <h2 className='section-title'>Basic Information</h2>
 
-        {/* Poore wrapper ko form tag bana diya taaki submit handle ho sake */}
         <form onSubmit={handleSubmit} className='add-product-form-wrapper'>
           
           {/* Left Form Section */}
@@ -152,7 +171,7 @@ const Page = () => {
               ></textarea>
             </div>
 
-            {/* Category & Brand Row */}
+            {/* Category & Stock Row */}
             <div className='form-row'>
               <div className='form-group'>
                 <label htmlFor='product-category'>Category</label>
@@ -211,6 +230,15 @@ const Page = () => {
                 />
               </div>
             </div>
+
+            {/* Left Form Section ke bilkul aakhir mein "Submit for Preview" Button */}
+            <button 
+              type='submit' 
+              className='preview-submit-btn'
+              disabled={loading}
+            >
+              {loading ? 'Saving to Database...' : 'Submit for Preview'}
+            </button>
           </div>
 
           {/* Right Media & Variant Section */}
@@ -235,15 +263,6 @@ const Page = () => {
               </div>
 
               {errorMessage && <p className='error-text'>{errorMessage}</p>}
-
-              {/* Upload / Submit Button */}
-              <button 
-                type='submit' 
-                className='upload-action-btn'
-                disabled={loading}
-              >
-                {loading ? 'Uploading...' : 'Upload Product & Media'}
-              </button>
 
               {/* Preview Container */}
               <div className='media-preview-container'>
@@ -307,11 +326,52 @@ const Page = () => {
 
         </form>
       </div>
+
+      {/* Pop-up Modal Card for Preview */}
+      {isModalOpen && previewData && (
+        <div className='modal-overlay'>
+          <div className='modal-card'>
+            <div className='modal-header'>
+              <h3>Product Preview Card</h3>
+              <button className='modal-close-btn' onClick={() => setIsModalOpen(false)}>
+                <FiX size={20} />
+              </button>
+            </div>
+            
+            <div className='modal-body'>
+              <p className='success-alert'>✔ Product successfully saved to database!</p>
+              
+              <div className='preview-info'>
+                <p><strong>Title:</strong> {previewData.title}</p>
+                <p><strong>Description:</strong> {previewData.description || 'N/A'}</p>
+                <p><strong>Category:</strong> {previewData.category}</p>
+                <p><strong>Stock:</strong> {previewData.stock || '0'}</p>
+                <p><strong>Price:</strong> ${previewData.price}</p>
+                <p><strong>Discounted Price:</strong> ${previewData.discountedPrice || '0'}</p>
+                <p><strong>Size:</strong> {previewData.size || 'N/A'}</p>
+                <p><strong>Color:</strong> {previewData.color || 'N/A'}</p>
+              </div>
+
+              <div className='modal-media-section'>
+                <h4>Uploaded Media Preview:</h4>
+                <div className='modal-media-grid'>
+                  {previewData.files.map((src, i) => (
+                    <img key={i} src={src} alt="uploaded preview" className='modal-thumb' />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className='modal-footer'>
+              <button className='modal-action-btn' onClick={() => setIsModalOpen(false)}>
+                Add Another Product
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default Page;
-
-
-
