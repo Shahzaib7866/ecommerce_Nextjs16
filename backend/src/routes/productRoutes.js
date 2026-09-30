@@ -33,8 +33,10 @@ router
 router
   .route("/:id")
   .get(getProductById)
-  .put(protect, admin, upload.single("image"), updateProduct)
-  .delete(protect, admin, deleteProduct);
+  .put(upload.single("image"), updateProduct)
+  .delete(deleteProduct);
+// .put(protect, admin, upload.single("image"), updateProduct)
+// .delete(protect, admin, deleteProduct);
 
 // router.get("/:id", getProductById);
 // // router.put("/:id", updateProduct);

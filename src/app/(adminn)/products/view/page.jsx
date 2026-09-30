@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import './view.css';
 import { 
   Button, 
@@ -17,6 +18,7 @@ import { FiEdit, FiTrash2, FiSearch } from 'react-icons/fi';
 import { GoSortDesc } from 'react-icons/go';
 
 const ProductsViewPage = () => {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -24,7 +26,11 @@ const ProductsViewPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Backend se products fetch karne ke liye (Real-time sync)
+  // Delete Modal States
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [productToDeleteId, setProductToDeleteId] = useState(null);
+
+  // Backend se products fetch karne ke liye
   const fetchProducts = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/products');
@@ -43,22 +49,35 @@ const ProductsViewPage = () => {
     fetchProducts();
   }, []);
 
-  // Delete Product Handler
-  const handleDelete = async (id) => {
-    if (confirm('Are you sure you want to delete this product?')) {
-      try {
-        const response = await fetch(`http://localhost:8000/api/products/${id}`, {
-          method: 'DELETE',
-        });
-        if (response.ok) {
-          setProducts(products.filter(item => item._id !== id));
-        } else {
-          alert('Failed to delete product');
-        }
-      } catch (error) {
-        console.error('Error deleting product:', error);
+  // 1. Open Delete Confirmation Modal
+  const promptDelete = (id) => {
+    setProductToDeleteId(id);
+    setDeleteModalOpen(true);
+  };
+
+  // 2. Permanently Delete from DB after Confirmation
+  const confirmDelete = async () => {
+    if (!productToDeleteId) return;
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/products/${productToDeleteId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setProducts(products.filter(item => item._id !== productToDeleteId));
+        setDeleteModalOpen(false);
+        setProductToDeleteId(null);
+      } else {
+        alert('Failed to delete product');
       }
+    } catch (error) {
+      console.error('Error deleting product:', error);
     }
+  };
+
+  // 3. Handle Edit (Redirecting to Add Product page with ID)
+  const handleEdit = (id) => {
+    router.push(`/products/add?id=${id}`);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -168,10 +187,20 @@ const ProductsViewPage = () => {
                         <TableCell>{row.sku || '-'}</TableCell>
                         <TableCell align="center">
                           <div className='action-buttons-group'>
-                            <IconButton color="primary" size="small" title="Edit">
+                            <IconButton 
+                              color="primary" 
+                              size="small" 
+                              title="Edit"
+                              onClick={() => handleEdit(row._id)}
+                            >
                               <FiEdit size={16} />
                             </IconButton>
-                            <IconButton color="error" size="small" onClick={() => handleDelete(row._id)} title="Delete">
+                            <IconButton 
+                              color="error" 
+                              size="small" 
+                              onClick={() => promptDelete(row._id)} 
+                              title="Delete"
+                            >
                               <FiTrash2 size={16} />
                             </IconButton>
                           </div>
@@ -194,8 +223,27 @@ const ProductsViewPage = () => {
           />
         </Paper>
       </div>
+
+      {/* Delete Confirmation Modal Pop-up */}
+      {deleteModalOpen && (
+        <div className='delete-modal-overlay'>
+          <div className='delete-modal-card'>
+            <h3>Are you sure?</h3>
+            <p>Do you really want to delete this product permanently from the database?</p>
+            <div className='delete-modal-actions'>
+              <button className='cancel-modal-btn' onClick={() => setDeleteModalOpen(false)}>
+                Cancel
+              </button>
+              <button className='confirm-delete-btn' onClick={confirmDelete}>
+                Confirm Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductsViewPage;
+

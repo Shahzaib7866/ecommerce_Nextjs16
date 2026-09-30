@@ -6,6 +6,7 @@ import { ShopContext } from '../../context/ShopContextValue'
 import Item from '../Item/Item'
 import { getImageUrl } from '@/constants/cloudinary'
 
+
 const INITIAL_COUNT = 9;
 const LOAD_MORE_COUNT = 6;
 
@@ -38,11 +39,11 @@ const SORT_OPTIONS = {
 };
 
 const ShopCategory = (props) => {
-  const { all_product } = useContext(ShopContext);
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [loading, setLoading] = useState(false);
   const [sortLabel, setSortLabel] = useState('Sort by');
 
+  const { all_product, productsLoading, productsError } = useContext(ShopContext);
 
   useEffect(() => {
     setVisibleCount(INITIAL_COUNT);
@@ -70,6 +71,9 @@ const ShopCategory = (props) => {
       });
     }, 200);
   };
+
+  if (productsLoading) return <p className="shopcategory-status">Loading products...</p>;
+if (productsError) return <p className="shopcategory-status">{productsError}</p>;
 
   return (
     <div className='shop-category'>

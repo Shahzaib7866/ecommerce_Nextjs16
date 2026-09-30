@@ -22,7 +22,8 @@ const CartDrawer = () => {
     .filter(([, qty]) => qty > 0)
     .map(([key, qty]) => {
       const [itemId, size] = key.split('_')
-      const product = all_product.find((p) => p.id === Number(itemId))
+         const product = all_product.find((p) => String(p.id) === String(itemId));
+
       return product ? { product, size, qty, key } : null
     })
     .filter(Boolean)

@@ -59,7 +59,7 @@ const Navbar = () => {
           height={38} 
           priority
         />
-        <div class="logo-text-group">
+        <div className="logo-text-group">
           <span className="logo-title font-serif">WEARIT</span>
           <span className="logo-badge">ATELIER</span>
         </div>

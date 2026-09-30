@@ -1,9 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import './prodadd.css';
 import { FiPlus, FiTrash2, FiVideo, FiX } from 'react-icons/fi';
 
-const Page = () => {
+const AddProductContent = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const productId = searchParams.get('id'); // URL se ID nikal li
+
   // 1. Text Inputs ke liye State
   const [formData, setFormData] = useState({
     title: '',
@@ -20,10 +25,45 @@ const Page = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
   
-  // Preview Pop-up state (Yeh data store karega jo modal mein dikhana hai)
+  // Preview Pop-up state
   const [previewData, setPreviewData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Agar URL mein ID hai, toh product ka data fetch karke fields mein fill karna
+  useEffect(() => {
+    if (productId) {
+      const fetchProductDetails = async () => {
+        setFetching(true);
+        try {
+          const response = await fetch(`http://localhost:8000/api/products/${productId}`);
+          const data = await response.json();
+          if (response.ok) {
+            setFormData({
+              title: data.title || '',
+              description: data.description || '',
+              category: data.category || '',
+              stock: data.stock || '',
+              price: data.price || '',
+              discountedPrice: data.discountedPrice || '',
+              size: data.size || '',
+              color: data.color || ''
+            });
+            // Agar pehle se images hain toh unhe handle kar sakte hain
+          } else {
+            alert('Failed to fetch product details.');
+          }
+        } catch (error) {
+          console.error('Error fetching product for edit:', error);
+        } finally {
+          setFetching(false);
+        }
+      };
+
+      fetchProductDetails();
+    }
+  }, [productId]);
 
   // Text inputs handle karne ka common function
   const handleInputChange = (e) => {
@@ -66,7 +106,7 @@ const Page = () => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  // 3. Form Submit & Database Saving Function
+  // 3. Form Submit & Database Saving / Updating Function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -84,36 +124,41 @@ const Page = () => {
         dataToSend.append('mediaFiles', file);
       });
 
-      // Backend API call
-      const response = await fetch('http://localhost:8000/api/products', {
-        method: 'POST',
+      // URL mein ID hone par PUT (Update), warna POST (Create) request
+      const url = productId 
+        ? `http://localhost:8000/api/products/${productId}` 
+        : 'http://localhost:8000/api/products';
+      
+      const method = productId ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
         body: dataToSend,
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        // Data successfully DB mein save ho gaya!
-        // Ab modal ke liye data set karte hain
         setPreviewData({
           ...formData,
           files: selectedFiles.map(file => URL.createObjectURL(file))
         });
         
-        setIsModalOpen(true); // Pop-up card open kar do
+        setIsModalOpen(true);
 
-        // Fields ko khali (reset) kar do aglay product ke liye
-        setFormData({
-          title: '',
-          description: '',
-          category: '',
-          stock: '',
-          price: '',
-          discountedPrice: '',
-          size: '',
-          color: ''
-        });
-        setSelectedFiles([]);
+        if (!productId) {
+          setFormData({
+            title: '',
+            description: '',
+            category: '',
+            stock: '',
+            price: '',
+            discountedPrice: '',
+            size: '',
+            color: ''
+          });
+          setSelectedFiles([]);
+        }
 
       } else {
         alert(result.message || 'Something went wrong!');
@@ -127,12 +172,18 @@ const Page = () => {
     }
   };
 
+  if (fetching) {
+    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading product details for editing...</div>;
+  }
+
   return (
     <div className='add-product-page'>  
       {/* Header Section */}
       <div className='add-product-header'>
-        <h1>Upload Products</h1>    
-        <span className='add-product-span'>Add new products to your store and manage your inventory effectively.</span>
+        <h1>{productId ? 'Edit Product' : 'Upload Products'}</h1>    
+        <span className='add-product-span'>
+          {productId ? 'Update your product information below.' : 'Add new products to your store and manage your inventory effectively.'}
+        </span>
       </div>
 
       <hr className="my-line" />
@@ -231,13 +282,12 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Left Form Section ke bilkul aakhir mein "Submit for Preview" Button */}
             <button 
               type='submit' 
               className='preview-submit-btn'
               disabled={loading}
             >
-              {loading ? 'Saving to Database...' : 'Submit for Preview'}
+              {loading ? 'Saving...' : (productId ? 'Update Product' : 'Submit for Preview')}
             </button>
           </div>
 
@@ -264,7 +314,6 @@ const Page = () => {
 
               {errorMessage && <p className='error-text'>{errorMessage}</p>}
 
-              {/* Preview Container */}
               <div className='media-preview-container'>
                 {selectedFiles.map((file, index) => (
                   <div className='media-preview-box' key={index}>
@@ -332,14 +381,14 @@ const Page = () => {
         <div className='modal-overlay'>
           <div className='modal-card'>
             <div className='modal-header'>
-              <h3>Product Preview Card</h3>
-              <button className='modal-close-btn' onClick={() => setIsModalOpen(false)}>
+              <h3>{productId ? 'Product Updated Successfully!' : 'Product Preview Card'}</h3>
+              <button className='modal-close-btn' onClick={() => { setIsModalOpen(false); if(productId) router.push('/products/view'); }}>
                 <FiX size={20} />
               </button>
             </div>
             
             <div className='modal-body'>
-              <p className='success-alert'>✔ Product successfully saved to database!</p>
+              <p className='success-alert'>✔ Changes successfully saved to database!</p>
               
               <div className='preview-info'>
                 <p><strong>Title:</strong> {previewData.title}</p>
@@ -351,20 +400,11 @@ const Page = () => {
                 <p><strong>Size:</strong> {previewData.size || 'N/A'}</p>
                 <p><strong>Color:</strong> {previewData.color || 'N/A'}</p>
               </div>
-
-              <div className='modal-media-section'>
-                <h4>Uploaded Media Preview:</h4>
-                <div className='modal-media-grid'>
-                  {previewData.files.map((src, i) => (
-                    <img key={i} src={src} alt="uploaded preview" className='modal-thumb' />
-                  ))}
-                </div>
-              </div>
             </div>
 
             <div className='modal-footer'>
-              <button className='modal-action-btn' onClick={() => setIsModalOpen(false)}>
-                Add Another Product
+              <button className='modal-action-btn' onClick={() => { setIsModalOpen(false); if(productId) router.push('/products/view'); }}>
+                {productId ? 'Back to Inventory' : 'Add Another Product'}
               </button>
             </div>
           </div>
@@ -372,6 +412,14 @@ const Page = () => {
       )}
     </div>
   );
-}
+};
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddProductContent />
+    </Suspense>
+  );
+};
 
 export default Page;

@@ -1,6 +1,5 @@
-
-/* Page Main Container */
-.products-view-page {
+/* Page Main Container - Optimized for Big Screens */
+.customers-view-page {
     width: calc(100% - 1.5rem);
     min-height: calc(100vh - 40px);
     padding: 24px;
@@ -26,8 +25,8 @@
     margin-bottom: 20px;
 }
 
-/* Box Structure */
-.products-box {
+/* Table Wrapper Card Box */
+.customers-box {
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
@@ -35,8 +34,8 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-/* Filters & Search Header Section */
-.products-details {
+/* Header Filters & Search Layout */
+.customers-details-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,13 +44,13 @@
     margin-bottom: 20px;
 }
 
-.products-filters {
+.customers-filters {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.products-filters .MuiButton-root {
+.customers-filters .MuiButton-root {
     text-transform: none;
     color: #4b5563;
     font-weight: 500;
@@ -60,13 +59,13 @@
     background-color: #f3f4f6;
 }
 
-.products-filters .active-filter {
+.customers-filters .active-filter {
     background-color: #2563eb !important;
     color: #ffffff !important;
 }
 
 /* Search Box Design */
-.products-header-search {
+.customers-header-search {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -90,7 +89,7 @@
     border-radius: 6px;
     outline: none;
     font-size: 14px;
-    width: 240px;
+    width: 260px;
     transition: border-color 0.2s;
 }
 
@@ -104,94 +103,36 @@
     color: #4b5563;
 }
 
-/* Table Customization */
-.table-product-thumb {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #e5e7eb;
-}
-
-.no-img {
-    font-size: 11px;
-    color: #9ca3af;
-}
-
+/* Table Text & Badges Customization */
 .text-muted {
     font-size: 12px;
     color: #6b7280;
     font-family: monospace;
 }
 
+.status-chip {
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+}
+
+.status-chip.active {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+}
+
+.status-chip.inactive {
+    background-color: #f3f4f6 !important;
+    color: #374151 !important;
+}
+
+.status-chip.banned {
+    background-color: hsl(0, 93%, 94%) !important;
+    color: #991b1b !important;
+}
+
 .action-buttons-group {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     justify-content: center;
-}
-
-/* Delete Confirmation Modal Overlay */
-.delete-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.delete-modal-card {
-    background: #ffffff;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 10px;
-    padding: 24px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    text-align: center;
-}
-
-.delete-modal-card h3 {
-    margin-top: 0;
-    color: #111827;
-    font-size: 18px;
-}
-
-.delete-modal-card p {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.delete-modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-}
-
-.cancel-modal-btn {
-    padding: 8px 16px;
-    background-color: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.confirm-delete-btn {
-    padding: 8px 16px;
-    background-color: #dc2626;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.confirm-delete-btn:hover {
-    background-color: #b91c1c;
 }

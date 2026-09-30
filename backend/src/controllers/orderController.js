@@ -1,20 +1,18 @@
 import mongoose from "mongoose";
 import { Orderm } from "../models/orderModels.js";
 import { OrderItemsm } from "../models/orderItemsModel.js";
-import Productm from "../models/Productmodels.js";
+import Productm from "../models/productModels.js";
 
 const createOrder = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
-    // CHANGE: schema field names ke hisaab se destructure — address/email/phone nahi,
-    // shippingAddress/guestInfo hain
     const { orderItems, shippingAddress, guestInfo, paymentMethod } = req.body;
 
-    // CHANGE: optionalProtect ne req.user set kiya ho to registered, warna guest
+    // req.user agar middleware ne cookie se decode kiya hai toh registered user hai
     const isRegisteredUser = !!req.user;
-    const customer = isRegisteredUser ? req.user._id : null;
+    const customer = isRegisteredUser ? req.user.id : null;
 
     if (!orderItems || orderItems.length === 0) {
       await session.abortTransaction();
@@ -22,7 +20,6 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ message: "Order items required" });
     }
 
-    // CHANGE: guestInfo.email check (guestEmail nahi — schema mein guestInfo.email hai)
     if (!isRegisteredUser && !guestInfo?.email) {
       await session.abortTransaction();
       session.endSession();
@@ -31,7 +28,6 @@ const createOrder = async (req, res) => {
         .json({ message: "Email required for guest checkout" });
     }
 
-    // NAYA: basic sanity checks (security)
     if (!shippingAddress || !paymentMethod) {
       await session.abortTransaction();
       session.endSession();
@@ -40,12 +36,10 @@ const createOrder = async (req, res) => {
         .json({ message: "Shipping address and payment method required" });
     }
 
-    // CHANGE: orderPrice → totalAmount (schema field name)
     let totalAmount = 0;
     const itemsToProcess = [];
 
     for (const item of orderItems) {
-      // NAYA: quantity sanity check — abuse rokne ke liye
       if (!item.quantity || item.quantity < 1 || item.quantity > 20) {
         await session.abortTransaction();
         session.endSession();
@@ -72,10 +66,9 @@ const createOrder = async (req, res) => {
       });
     }
 
-    // CHANGE: schema ke exact field names — customer, guestInfo, shippingAddress, totalAmount
     const newOrder = new Orderm({
       customer,
-      guestInfo: isRegisteredUser ? undefined : guestInfo, // registered ho to guestInfo save nahi karte
+      guestInfo: isRegisteredUser ? undefined : guestInfo,
       shippingAddress,
       totalAmount,
       paymentMethod,
@@ -114,22 +107,20 @@ const createOrder = async (req, res) => {
 
 const getAllorders = async (req, res) => {
   try {
-    // 1. Sary orders nikalen
     const orders = await Orderm.find()
       .populate("customer", "name email")
       .sort({ createdAt: -1 });
 
-    // 2. Har order ke mukable uske items fetch karne ke liye map chalayen
     const ordersWithItems = await Promise.all(
       orders.map(async (order) => {
         const items = await OrderItemsm.find({ orderId: order._id }).populate(
           "productId",
           "title price image"
-        ); // Product ki details populate ki hain
+        );
 
         return {
           ...order.toObject(),
-          orderItems: items, // Frontend ke liye array ki form mein attach kar diya
+          orderItems: items,
         };
       })
     );
@@ -152,7 +143,6 @@ const getOrderById = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // Is order ke against jitne items hain unhein alag se fetch karein
     const items = await OrderItemsm.find({ orderId: order._id }).populate(
       "productId",
       "title price image"
@@ -197,7 +187,7 @@ const updateOrderStatus = async (req, res) => {
     res.status(200).json(updatedorder);
   } catch (error) {
     console.error("Error updating order:", error);
-    res.status(200).json({ message: "Error updating order" });
+    res.status(500).json({ message: "Error updating order" });
   }
 };
 
@@ -213,10 +203,9 @@ const deleteOrder = async (req, res) => {
     if (!deletedorder) {
       await session.abortTransaction();
       session.endSession();
-      return res.status(404).json({ message: "Order not found" });
+      return res.status(400).json({ message: "Order not found" });
     }
 
-    // Jab order delete ho toh uske associated orderItems ko bhi delete karna zaroori hai
     await OrderItemsm.deleteMany({ orderId: orderId }, { session });
 
     await session.commitTransaction();
@@ -243,12 +232,10 @@ const getOrderByIdForGuest = async (req, res) => {
     const order = await Orderm.findById(id);
     if (!order) return res.status(404).json({ message: "Order not found" });
 
-    // NAYA: agar ye registered user ka order hai, guest route se access allowed nahi
     if (order.customer) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    // CHANGE: guestEmail → guestInfo.email
     if (order.guestInfo?.email !== email) {
       return res.status(403).json({ message: "Unauthorized" });
     }
@@ -264,10 +251,9 @@ const getOrderByIdForGuest = async (req, res) => {
   }
 };
 
-// registered user apne saare orders dekhega
 const getMyOrders = async (req, res) => {
   try {
-    const orders = await Orderm.find({ customer: req.user._id }).sort({
+    const orders = await Orderm.find({ customer: req.user.id }).sort({
       createdAt: -1,
     });
     res.status(200).json(orders);
@@ -285,3 +271,4 @@ export {
   getOrderByIdForGuest,
   getMyOrders,
 };
+

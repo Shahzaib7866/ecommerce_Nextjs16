@@ -86,13 +86,13 @@ export const sidebarMenu = [
         href: "/products/add",
       },
       {
-        title: "Edit Products",
-        href: "/products/edit",
+        title: "View Products",
+        href: "/products/view",
       },
-      {
-        title: "Delete Products",
-        href: "/products/delete",
-      },
+      // {
+      //   title: "Delete Products",
+      //   href: "/products/delete",
+      // },
     ],
   },
   {
