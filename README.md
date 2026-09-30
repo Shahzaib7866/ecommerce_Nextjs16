@@ -9,12 +9,11 @@ Shopping Cart with Redux, Product Listing & Filtering, Mock Checkout Flow
 How to run:
 just go into the root of directory and enter command "npm run dev" ....
 
-i have deployed it on vercel as well
+i have deployed it on vercel as well. check it out here: https://wearit-nine.vercel.app/
 
 i convert it from rectjs to nextjs and than deploy, in my first attempt build failed but than i research to find out there is new setting arrangement for nextjs in vercel.
 
-after one week when i run frontend again it start panicing and reloading within a time of fractions. when i debug i figure out the issue is with 
-Turbopack, it crashes on edge cases.
+After one week when i run frontend again it start panicing and reloading within a time of fractions. when i debug i figure out the issue is with Turbopack, it crashes on edge cases.
 to stable Developement enviroment use Webpack as it is more mature.
 
 All we need to do use this "dev": "next dev --webpack", in scripts of package.json
@@ -27,12 +26,8 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 
-
-
-
 problem i faced:
-# new routes of admin were not working so 
-# Clear the Next.js Build Cache
+new routes of admin were not working s, i clear the Next.js Build Cache
 
 
 ab frontend ph product upload form bna diya tu sb se pehly form ki state management krin gy like data collect krna taaky 
